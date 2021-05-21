@@ -21,10 +21,10 @@ class Player {
     // 移動
     move() {
         // x座標
-        if(keyIsDown(65)) { // aで左方向に移動
+        if(keyIsDown(65) || keyIsDown(LEFT_ARROW)) { // aで左方向に移動
             this.x -= 2;
         }
-        if(keyIsDown(68)) { // dで右方向に移動
+        if(keyIsDown(68) || keyIsDown(RIGHT_ARROW)) { // dで右方向に移動
             this.x += 2;
         }
 
@@ -38,7 +38,7 @@ class Player {
 
     keyPressed() {
         // スペースかwでジャンプ
-        if(keyCode === 32 || keyCode === 87) {
+        if(keyCode === 32 || keyCode === 87 || keyCode == UP_ARROW) {
             this.dy += 20;
         }
     }
