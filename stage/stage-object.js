@@ -4,25 +4,28 @@ class StageObj {
     constructor() {}
     display() {}
 
-    // 左右の端のx座標，上下の端のy座標を計算
-    updateEdgeXY() {
-        this.leftX = this.x - this.w/2;
-        this.rightX = this.x + this.w/2;
-        this.topY = this.y + this.h/2;
-        this.bottomY = this.y - this.h/2;
+    // 左右の端のx座標，上下の端のy座標
+    get leftX() {
+        return this.x - this.w/2;
+    }
+    get rightX() {
+        return this.x + this.w/2;
+    }
+    get topY() {
+        return this.y + this.h/2;
+    }
+    get bottomY() {
+        return this.y - this.h/2;
     }
 }
 
 // 地面のオブジェクト
 class Ground extends StageObj {
-    constructor() {
-        super();
+    init() {
         this.h = height/8;
         this.x = 0;
         this.y = this.h/2 - height/2;
         this.w = width;
-
-        this.updateEdgeXY();
     }
     
     display() {

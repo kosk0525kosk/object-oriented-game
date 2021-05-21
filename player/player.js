@@ -1,5 +1,6 @@
 class Player {
-    constructor() {
+    // 初期化
+    init() {
         this.x = 0; // x座標
         this.y = 0; // y座標
         this.w = 50; // 幅
@@ -7,9 +8,20 @@ class Player {
         this.dx = 0; // x方向の速さ
         this.dy = 0; // y方向の速さ
         this.g = 1; // 重力加速度
+    }
 
-        // 端の座標
-        this.updateEdgeXY();
+    // 左右の端のx座標，上下の端のy座標
+    get leftX() {
+        return this.x - this.w/2;
+    }
+    get rightX() {
+        return this.x + this.w/2;
+    }
+    get topY() {
+        return this.y + this.h/2;
+    }
+    get bottomY() {
+        return this.y - this.h/2;
     }
 
     // 描画
@@ -20,27 +32,24 @@ class Player {
 
     // 移動
     move() {
-        // x座標
-        if(keyIsDown(65) || keyIsDown(LEFT_ARROW)) { // aで左方向に移動
-            this.x -= 2;
-        }
-        if(keyIsDown(68) || keyIsDown(RIGHT_ARROW)) { // dで右方向に移動
-            this.x += 2;
-        }
-
         // y座標
         this.dy -= this.g;
         this.y += this.dy;
-
-        // 端の座標を更新
-        this.updateEdgeXY();
+    }
+    
+    // 右移動
+    walkRight() {
+        this.x += 2;
     }
 
-    keyPressed() {
-        // スペースかwでジャンプ
-        if(keyCode === 32 || keyCode === 87 || keyCode == UP_ARROW) {
-            this.dy += 20;
-        }
+    // 左移動
+    walkLeft() {
+        this.x -= 2;
+    }
+
+    // ジャンプ
+    jump() {
+        this.dy += 20;
     }
 
     // 衝突判定
@@ -60,13 +69,5 @@ class Player {
                 this.y = obj.topY + this.h/2;
             }
         }
-    }
-
-    // 左右の端のx座標，上下の端のy座標を計算
-    updateEdgeXY() {
-        this.leftX = this.x - this.w/2;
-        this.rightX = this.x + this.w/2;
-        this.topY = this.y + this.h/2;
-        this.bottomY = this.y - this.h/2;
     }
 }

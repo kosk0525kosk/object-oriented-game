@@ -1,36 +1,24 @@
-let player, ground;
+const player = new Player();
+const ground = new Ground();
 
 function setup() {
     createCanvas(800, 600);
-
-    player = new Player();
-    ground = new Ground();
+    GameManager.initObjects([player, ground]);
 }
 
 function draw(){ 
-    // 背景: 白
-    background(255);
-
     // 座標系の変換
     rectMode(CENTER);
     translate(width/2, height/2); // 原点をキャンバスの中心にする
     scale(1, -1); // y軸の正の方向が上方向となるようにする
 
-    // プレイヤー移動
-    player.move();
-
-    // 衝突判定
-    player.crash(ground);
+    // データの処理
+    GameManager.updateStatus();
 
     // 描画
-    // 外枠
-    noFill();
-    rect(0, 0, width, height);
-    // 他
-    ground.display();
-    player.display();
+    GameManager.display();
 }
 
 function keyPressed() {
-    player.keyPressed();
+    GameManager.keyPressed();
 }
