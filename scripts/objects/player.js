@@ -1,4 +1,4 @@
-class Player extends StageObject {
+class Player extends GameObject {
   constructor(x, y) {
     super(x, y);
     this.w = 50; // 幅
@@ -43,12 +43,6 @@ class Player extends StageObject {
   // ジャンプ
   jump() {
     this.dy += 20;
-  }
-
-  // objへの着地
-  land(obj) {
-    this.dy = 0;
-    this.y = obj.topY;
   }
 
   // p5jsに認識させるkeyPressedメソッド

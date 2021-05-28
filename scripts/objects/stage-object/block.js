@@ -1,4 +1,4 @@
-class Block extends StageObject {
+class Block extends GameObject {
   constructor(x, y) {
     super(x, y);
     this.w = 50;

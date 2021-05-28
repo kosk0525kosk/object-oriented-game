@@ -1,8 +1,7 @@
-class Stage1 {
+class Stage1 extends Stage {
   constructor() {
-    this.objs = [
-      new Ground(0, -gameManager.groundH), 
-      new Block(200, 50)
-    ];
+    super();
+    this.objs.push(new Ground(0, -gameManager.groundH));
+    this.objs.push(new Block(200, 50));
   }
 }

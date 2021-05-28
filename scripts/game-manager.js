@@ -1,23 +1,15 @@
-// インプットに対するオブジェクトの操作
-// オブジェクト同士の処理
 class GameManager {
+  // ゲッター
+  // 例えば get a() {return b} と設定すると this.a で b が帰ってくるようになる
   get groundW() { return width; }
   get groundH() { return height / 8; }
-  get stageH() { return height - height/8; }
+  get stageH() { return height - this.groundH; }
   get stageW() { return width; }
 
   // 初期化
-  createPlayer() {
-    return new Player(0, 0);
-  }
-
-  createStage() {
-    return new Stage1();
-  }
-
   initGame() {
-    this.player = this.createPlayer();
-    this.stage = this.createStage();
+    this.player = new Player(0, 0);
+    this.stage = new Stage1();
   }
 
   // 座標系の変換
@@ -30,15 +22,8 @@ class GameManager {
 
   // 描画
   display() {
-    // 背景・外枠
-    background(255);
-    noFill();
-    rect(0, -this.groundH, width, height);
-
     // ステージ
-    for (let i = 0; i < this.stage.objs.length; i++) {
-      this.stage.objs[i].display();
-    }
+    this.stage.display();
 
     // プレイヤー
     this.player.display();
@@ -49,29 +34,17 @@ class GameManager {
     // プレイヤー
     this.player.move();
 
-    this.collision();
+    GameObject.collision(this.player, this.stage);
   }
 
   // 衝突判定
   collision() {
     // 
     for (let i = 0; i < this.stage.objs.length; i++) {
-      if (this.isLanding(this.player, this.stage.objs[i])) {
+      if (GameObject.isLanding(this.player, this.stage.objs[i])) {
         this.player.land(this.stage.objs[i]);
       }
     }
-  }
-
-  // 着地判定
-  // aがbに着地しているときtrue
-  isLanding(a, b) {
-    return (
-      (
-        (a.leftX > b.leftX && a.leftX < b.rightX)
-        || (a.rightX > b.leftX && a.rightX < b.rightX)
-      )
-      && (a.bottomY <= b.topY)
-    );
   }
 
   // p5jsに認識させるkeyPressedメソッド

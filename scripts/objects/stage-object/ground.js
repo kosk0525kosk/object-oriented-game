@@ -1,4 +1,4 @@
-class Ground extends StageObject {
+class Ground extends GameObject {
   constructor(x, y) {
     super(x, y);
     this.w = gameManager.groundW;
